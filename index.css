@@ -1,0 +1,168 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-midnight-900 text-slate-200 font-sans antialiased;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    @apply bg-neon-lavender/20 text-white;
+  }
+
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-midnight-500 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-midnight-500;
+  }
+}
+
+@layer components {
+  /* The main glassmorphism card for personas */
+  .glass-card {
+    @apply relative rounded-3xl overflow-hidden;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(24px) saturate(140%);
+    -webkit-backdrop-filter: blur(24px) saturate(140%);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .glass-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 24px;
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      rgba(201, 181, 240, 0.15) 0%,
+      rgba(163, 230, 207, 0.08) 25%,
+      rgba(255, 255, 255, 0) 50%,
+      rgba(163, 230, 207, 0.08) 75%,
+      rgba(201, 181, 240, 0.15) 100%
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .glass-card:hover::before {
+    opacity: 1;
+  }
+
+  .glass-card:hover {
+    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow:
+      0 0 40px rgba(201, 181, 240, 0.08),
+      0 0 80px rgba(163, 230, 207, 0.04),
+      0 24px 48px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+  }
+
+  /* Surface glass panel */
+  .glass-panel {
+    @apply rounded-3xl;
+    background: rgba(255, 255, 255, 0.025);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  /* Neon glow button */
+  .neon-btn {
+    @apply relative overflow-hidden rounded-2xl font-semibold text-sm;
+    background: linear-gradient(135deg, rgba(201, 181, 240, 0.15), rgba(163, 230, 207, 0.15));
+    border: 1px solid rgba(201, 181, 240, 0.2);
+    color: #e2e8f0;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .neon-btn:hover {
+    background: linear-gradient(135deg, rgba(201, 181, 240, 0.25), rgba(163, 230, 207, 0.25));
+    border-color: rgba(201, 181, 240, 0.4);
+    box-shadow:
+      0 0 20px rgba(201, 181, 240, 0.2),
+      0 0 40px rgba(163, 230, 207, 0.1);
+    color: #fff;
+  }
+
+  /* Primary action button */
+  .primary-btn {
+    @apply relative overflow-hidden rounded-2xl font-semibold text-sm;
+    background: linear-gradient(135deg, #c9b5f0 0%, #a3e6cf 50%, #89cff0 100%);
+    background-size: 200% 200%;
+    border: none;
+    color: #0a0d24;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: shimmer 4s ease infinite;
+  }
+
+  .primary-btn:hover {
+    background-position: 100% 0;
+    box-shadow:
+      0 0 30px rgba(201, 181, 240, 0.3),
+      0 0 60px rgba(163, 230, 207, 0.15);
+    transform: translateY(-1px);
+  }
+
+  .primary-btn:disabled {
+    @apply opacity-50 cursor-not-allowed;
+    box-shadow: none;
+    transform: none;
+  }
+
+  /* Nav items */
+  .nav-item {
+    @apply flex items-center gap-3 px-3 py-2.5 rounded-2xl text-sm font-medium transition-all duration-300;
+  }
+
+  .nav-item-active {
+    @apply text-white;
+    background: linear-gradient(135deg, rgba(201, 181, 240, 0.12), rgba(163, 230, 207, 0.08));
+    border: 1px solid rgba(201, 181, 240, 0.15);
+  }
+
+  .nav-item-inactive {
+    @apply text-slate-500;
+  }
+
+  .nav-item-inactive:hover {
+    @apply text-slate-200;
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  /* Text gradient */
+  .text-gradient {
+    background: linear-gradient(135deg, #c9b5f0 0%, #a3e6cf 50%, #89cff0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Background gradient orb */
+  .gradient-orb {
+    @apply absolute rounded-full pointer-events-none;
+    filter: blur(80px);
+  }
+}
